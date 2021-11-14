@@ -1,3 +1,5 @@
+
+#pragma once
 #include <iostream>
 #include <vector>
 #include <list>
@@ -9,6 +11,9 @@
 
 const int ip_octets = 4;
 
+/*!
+    \brief A class for outputting ip addresses from different storage formats
+*/
 struct ip_printer
 {
 

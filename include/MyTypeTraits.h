@@ -5,6 +5,9 @@
 #include <list>
 #include <type_traits>
 
+/*!
+    \brief Class for checking template on std::string
+*/
 template<class T>
 struct is_string {
     static bool const value = false;
@@ -15,6 +18,10 @@ struct is_string<std::string> {
     static bool const value = true;
 };
 
+
+/*!
+    \brief Class for checking template on std::vector with integer parameters as long, short, char and etc
+*/
 template<class T>
 struct is_vector {
     static bool const value = false;
@@ -25,6 +32,10 @@ struct is_vector<std::vector<T>> {
     static bool const value = std::numeric_limits<T>::is_integer | is_string<T>::value;
 };
 
+
+/*!
+    \brief Class for checking template on std::list with integer parameters as long, short, char and etc
+*/
 template<class T>
 struct is_list {
     static bool const value = false;
@@ -41,6 +52,10 @@ constexpr bool is_sametypes()
     return true;
 }
 
+/*!
+    \brief Function for checking variadic template on same arguments
+*/
+
 template<typename T, typename T2, typename ...Args>
 constexpr bool is_sametypes()
 {
@@ -53,6 +68,9 @@ struct is_tuple
     static bool const value = false;
 };
 
+/*!
+    \brief Class for checking template on std::tuple with same parameters
+*/
 template<typename ...Args>
 struct is_tuple <std::tuple<Args...>>
 {
