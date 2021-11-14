@@ -3,10 +3,10 @@
 int main()
 {
     ip_printer v;
-    int integer = -1;
+    int integer = 2130706433;
     short sh = 0;
-    char c = 0;
-    long d = 0;
+    char c = -1;
+    long long d = 1701872425;
     std::cout << v.print(integer) << std::endl;
     std::cout << v.print(sh) << std::endl;
     std::cout << v.print(c) << std::endl;

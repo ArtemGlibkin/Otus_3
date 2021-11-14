@@ -6,6 +6,9 @@
 #include <tuple>
 #include "MyTypeTraits.h"
 #include <sstream>
+
+const int ip_octets = 4;
+
 struct ip_printer
 {
 
@@ -17,13 +20,14 @@ struct ip_printer
             std::remove_const<typename 
                 std::remove_reference<T>::type
                 >::type>::is_integer>::type>
-    std::string print(const T& ip)
+    std::string print(const T& ip_t)
     {
+        int ip = static_cast<int>(ip_t);
         std::stringstream ss;
-        for (int i = 0; i < 4; i++)
+        for (int i = ip_octets - 1; i >=0; i--)
         {
-            unsigned char b = ip << (i * 8);
-            ss <<(int) b << ((i == 3) ? "" : ".");
+            unsigned char b = ip >> (i * 8);
+            ss <<(int) b << ((i == 0) ? "" : ".");
         }
         return ss.str();
     }    
@@ -44,7 +48,7 @@ struct ip_printer
         int i = 0;
         for (auto it : ip)
         {
-            ss << it << ((i == 3) ? "" : ".");
+            ss << it << ((i == ip_octets-1) ? "" : ".");
             i++;
         }
         return ss.str();
