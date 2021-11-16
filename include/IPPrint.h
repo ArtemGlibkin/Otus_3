@@ -10,15 +10,21 @@
 #include <sstream>
 
 const int ip_octets = 4;
+const int bits_in_byte = 8;
 
 /*!
-    \brief A class for outputting ip addresses from different storage formats
+    \brief Class for outputting ip addresses from different storage formats
 */
 struct ip_printer
 {
 
     ip_printer() = default;
     
+
+    /*!
+        Convert integral type view to string vie
+        \param[in] ip_t Source integral value
+    */
     template<typename T,
         typename Fake = typename std::enable_if<
         std::numeric_limits<typename 
@@ -31,17 +37,25 @@ struct ip_printer
         std::stringstream ss;
         for (int i = ip_octets - 1; i >=0; i--)
         {
-            unsigned char b = ip >> (i * 8);
+            unsigned char b = ip >> (i * bits_in_byte);
             ss <<(int) b << ((i == 0) ? "" : ".");
         }
         return ss.str();
     }    
-  
+    
+    /*!
+        Realize print method for string
+        \param[in] ip Source integral value
+    */
     std::string print(const std::string& ip)
     {
         return ip;
     }
     
+    /*!
+        Realize print method for stl vectors and lists with integral or string values
+        \param[ip] ip Source
+    */
     template<typename T,
         typename Fake = typename std::enable_if<
                         is_vector<typename std::remove_const<typename std::remove_reference<T>::type>::type>::value |
@@ -59,6 +73,10 @@ struct ip_printer
         return ss.str();
     }
 
+    /*!
+       Realize print method for stl tuples with the same parameters
+       \param[ip] ip Source
+   */
     template<typename T,
         typename Fake = typename std::enable_if<
         is_tuple<typename std::remove_const<typename std::remove_reference<T>::type>::type>::value
