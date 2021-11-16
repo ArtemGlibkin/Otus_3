@@ -3,6 +3,7 @@
 #include <tuple>
 #include <vector>
 #include <list>
+#include <limits>
 #include <type_traits>
 
 /*!
